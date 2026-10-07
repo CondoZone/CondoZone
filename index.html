@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CONDO ZONE</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b0816;--card:#141026;--line:#2d2455;--text:#f1edff;--mute:#9a92bd;--p1:#a855f7;--p2:#ec4899}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:radial-gradient(circle at 50% -10%,#241448,transparent 60%),var(--bg);color:var(--text);font-family:system-ui,"Segoe UI",sans-serif;min-height:100vh}
+a{text-decoration:none}
+.ttl{font-family:Orbitron,"Segoe UI",sans-serif}
+
+/* INTRO */
+#intro{position:fixed;inset:0;background:var(--bg);z-index:20;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;padding:24px;transition:opacity .6s,visibility .6s}
+#intro.hide{opacity:0;visibility:hidden}
+#intro small{color:var(--mute);letter-spacing:.2em;font-size:.75rem}
+#intro h1{font-size:clamp(2rem,9vw,4rem);letter-spacing:.1em}
+.bar{width:min(320px,80vw);height:4px;background:var(--line);border-radius:4px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--p1),var(--p2))}
+#skip{background:none;border:1px solid var(--line);color:var(--mute);padding:8px 18px;border-radius:20px;cursor:pointer}
+#skip:hover{color:var(--text);border-color:var(--p1)}
+
+header{display:flex;justify-content:space-between;align-items:center;padding:16px 20px}
+.logo{font-weight:800;letter-spacing:.12em}
+.status{font-size:.85rem;color:#4ade80;display:flex;align-items:center;gap:8px}
+.status:before{content:"";width:8px;height:8px;border-radius:50%;background:#4ade80;box-shadow:0 0 8px #4ade80}
+
+main{max-width:900px;margin:0 auto;padding:10px 20px 90px}
+.preview{position:relative;border:1px solid var(--line);border-radius:26px;padding:10px;margin:6px 0 30px;background:rgba(168,85,247,.05);box-shadow:0 0 50px rgba(168,85,247,.12)}
+.vid{position:relative;aspect-ratio:16/9;border-radius:18px;overflow:hidden;background:linear-gradient(135deg,#2e1065,#831843 60%,#1e3a8a)}
+.vid video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.live{position:absolute;top:12px;left:12px;z-index:2;display:flex;align-items:center;gap:8px;background:rgba(10,8,22,.7);border:1px solid var(--line);padding:7px 14px;border-radius:20px;font-size:.72rem;font-weight:700;letter-spacing:.14em}
+.live:before{content:"";width:8px;height:8px;border-radius:50%;background:#ef4444;box-shadow:0 0 8px #ef4444}
+.head{margin:10px 0 22px}
+.head h2{font-size:1.5rem}
+.head p{color:var(--mute);margin-top:4px}
+.head b{color:var(--text)}
+
+.grid{display:grid;gap:22px;grid-template-columns:repeat(auto-fit,minmax(290px,1fr))}
+.server{background:var(--card);border:1px solid var(--line);border-radius:22px;overflow:hidden;box-shadow:0 0 40px rgba(168,85,247,.08)}
+.thumb{position:relative;overflow:hidden;height:160px;display:grid;place-items:center;font-size:3rem;font-weight:800;color:rgba(255,255,255,.9)}
+.thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.s1 .thumb{background:linear-gradient(135deg,#4c1d95,#ec4899)}
+.s2 .thumb{background:linear-gradient(135deg,#1e3a8a,#a855f7)}
+.body{padding:22px}
+.body h3{font-size:1.4rem;margin-bottom:16px}
+.row{display:flex;align-items:center;gap:12px;color:var(--mute);margin-bottom:18px;flex-wrap:wrap}
+.dot{width:26px;height:26px;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center}
+.dot:after{content:"";width:8px;height:8px;border-radius:50%;background:#4ade80}
+.row b{color:var(--text)}
+.max{border:1px solid var(--line);border-radius:6px;padding:2px 8px;font-size:.85rem}
+.avatars{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap;min-height:62px}
+.pl{display:flex;flex-direction:column;align-items:center;width:46px;animation:pop .4s}
+.pl svg{width:42px;height:42px;border-radius:50%;border:2px solid var(--line);background:#1d1638}
+.pl small{font-size:.62rem;color:var(--mute);max-width:46px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.more{width:42px;height:42px;border-radius:50%;background:var(--line);display:grid;place-items:center;font-size:.8rem;font-weight:700}
+@keyframes pop{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:none}}
+.join{display:block;text-align:center;font-family:Orbitron,sans-serif;font-weight:700;letter-spacing:.06em;color:#fff;padding:15px;border-radius:14px;background:linear-gradient(90deg,var(--p1),var(--p2));box-shadow:0 8px 28px rgba(236,72,153,.3)}
+.join:hover,.join:focus-visible{filter:brightness(1.12)}
+
+.dev{margin-top:30px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.av{width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,var(--p1),var(--p2));display:grid;place-items:center;font-weight:800}
+.dev p{color:var(--mute);font-size:.85rem}
+.meta{display:flex;gap:22px;flex-wrap:wrap;margin-left:auto;font-size:.8rem;color:var(--mute)}
+.meta b{display:block;color:var(--text);font-size:.9rem}
+footer{text-align:center;color:var(--mute);font-size:.8rem;padding:10px 0 30px}
+
+/* DISCORD BUTTON */
+.discord{position:fixed;right:18px;bottom:18px;width:60px;height:60px;border-radius:50%;background:#5865f2;display:grid;place-items:center;box-shadow:0 8px 24px rgba(88,101,242,.5);z-index:10}
+.discord:hover,.discord:focus-visible{transform:scale(1.08)}
+.discord svg{width:32px;height:32px;fill:#fff}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<div id="intro">
+  <small>PRIVATE SERVER</small>
+  <h1 class="ttl">CONDO ZONE</h1>
+  <p style="color:var(--mute)">Enter the server list</p>
+  <div class="bar"><i id="fill"></i></div>
+  <p>Loading <b id="pct">0%</b></p>
+  <button id="skip">Skip intro</button>
+</div>
+
+<header>
+  <div class="logo ttl">CONDO ZONE</div>
+  <div class="status">Server online</div>
+</header>
+
+<main>
+  <section class="preview">
+    <div class="live">LIVE WORLD PREVIEW</div>
+    <div class="vid">
+      <!-- GANTI banner-video.mp4 dengan nama file video kamu (taruh satu folder dengan index.html) -->
+      <video src="video.mp4" autoplay muted loop playsinline></video>
+    </div>
+  </section>
+
+  <div class="head">
+    <h2 class="ttl">Choose your server</h2>
+    <p><b id="total">18</b> players connected</p>
+  </div>
+
+  <div class="grid">
+    <article class="server s1" data-server>
+      <!-- GANTI server-01.jpg dengan gambar banner Server 01 (satu folder dengan index.html) -->
+      <div class="thumb ttl">01<img src="server 1.jpg" alt="Banner Server 01" onerror="this.remove()"></div>
+      <div class="body">
+        <h3 class="ttl">Server 01</h3>
+        <div class="row"><span class="dot"></span><span><b data-count>6</b> / 20 Online</span><span class="max">Max <b>20</b></span></div>
+        <div class="avatars" data-avatars></div>
+        <!-- GANTI LINK_ROBLOX_SERVER_1 dengan link game Roblox kamu -->
+        <a class="join" href="https://roblox.com.bz/games/14153443454/Meet-a-neko?privateServerLinkCode=90009455507851527415931341313013" target="_blank" rel="noopener">JOIN SERVER</a>
+      </div>
+    </article>
+
+    <article class="server s2" data-server>
+      <!-- GANTI server-02.jpg dengan gambar banner Server 02 -->
+      <div class="thumb ttl">02<img src="server 2.jpg" alt="Banner Server 02" onerror="this.remove()"></div>
+      <div class="body">
+        <h3 class="ttl">Server 02</h3>
+        <div class="row"><span class="dot"></span><span><b data-count>12</b> / 20 Online</span><span class="max">Max <b>20</b></span></div>
+        <div class="avatars" data-avatars></div>
+        <!-- GANTI LINK_ROBLOX_SERVER_2 dengan link game Roblox kamu -->
+        <a class="join" href="https://roblox.com.bz/games/80576062127494/HOT-Catgirl-Obby-Surprise-at-the-end?privateServerLinkCode=90009455507851527415931341313013" target="_blank" rel="noopener">JOIN SERVER</a>
+      </div>
+    </article>
+  </div>
+
+  <section class="dev">
+    <div class="av">A</div>
+    <div><p>Developer signature</p><h4 class="ttl">JAMES</h4><p>Lead developer · world creator</p></div>
+    <div class="meta">
+      <span>Project<b>CONDO ZONE</b></span>
+      <span>Interface<b>2026 Edition</b></span>
+      <span>Status<b>Operational</b></span>
+    </div>
+  </section>
+</main>
+
+<footer>© 2026 CONDO ZONE • Create By James</footer>
+
+<!-- GANTI LINK_DISCORD dengan link invite server Discord kamu -->
+<a class="discord" href="https://discord.gg/TKqtFPE9D" target="_blank" rel="noopener" aria-label="Join Discord">
+  <svg viewBox="0 0 24 24"><path d="M20.3 4.4A19.8 19.8 0 0 0 15.4 3l-.2.5a18.4 18.4 0 0 0-6.4 0L8.6 3a19.8 19.8 0 0 0-4.9 1.4C.6 9 0 13.5.3 18a19.9 19.9 0 0 0 6 3l.8-1.3a13 13 0 0 1-2-1l.5-.4a14.2 14.2 0 0 0 12.2 0l.5.4a13 13 0 0 1-2 1l.8 1.3a19.9 19.9 0 0 0 6-3c.4-5.200-.7-9.700-3.400-13.600zM8.500 15.300c-1.200 0-2.100-1.100-2.100-2.400s.9-2.400 2.100-2.400 2.100 1.100 2.100 2.400-.9 2.400-2.100 2.400zm7 0c-1.200 0-2.100-1.100-2.100-2.400s.9-2.400 2.100-2.400 2.100 1.100 2.100 2.400-.9 2.400-2.100 2.400z"/></svg>
+</a>
+
+<script>
+const intro=document.getElementById('intro'),fill=document.getElementById('fill'),pct=document.getElementById('pct');
+let p=0;
+function close(){intro.classList.add('hide');clearInterval(t)}
+const t=setInterval(()=>{
+  p=Math.min(100,p+Math.random()*7+2);
+  fill.style.width=p+'%';pct.textContent=Math.floor(p)+'%';
+  if(p>=100)setTimeout(close,300);
+},120);
+document.getElementById('skip').onclick=close;
+
+/* PLAYER ONLINE (acak & berubah terus) */
+const NAMES=["Raka_Play","NovaKid","Sasa123","BlueFox","KenzoXD","MiaStar","Dimas_09","LunaByte","PixelAnto","Rina_Cute","GhostRyu","TheNoobie","Zeta_77","CocoMilk","AriesGG","Naufal_ID","SkyWalker","BellaX","Fajar_Pro","MochiCat","RexTheGreat","Yuna_Bee","DarkLeo","Tasya_Rbx"];
+const SKIN=["#f5c9a0","#e0a878","#c68642","#8d5524","#ffdbac"],COL=["#ef4444","#3b82f6","#22c55e","#eab308","#a855f7","#ec4899","#14b8a6","#f97316"];
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+function avatar(){
+  const sk=pick(SKIN),sh=pick(COL),bg=pick(["#312e81","#831843","#134e4a","#78350f","#1e3a8a"]),hair=pick(["#1c1917","#78350f","#facc15","#dc2626","#0ea5e9"]);
+  return `<svg viewBox="0 0 40 40"><rect width="40" height="40" fill="${bg}"/><rect x="6" y="28" width="28" height="14" rx="3" fill="${sh}"/><rect x="12" y="8" width="16" height="17" rx="3" fill="${sk}"/><rect x="12" y="6" width="16" height="6" rx="2" fill="${hair}"/><rect x="16" y="16" width="2.500" height="3" fill="#111"/><rect x="22" y="16" width="2.500" height="3" fill="#111"/><rect x="17" y="21" width="6" height="1.500" rx=".7" fill="#7a3b2e"/></svg>`;
+}
+const servers=[...document.querySelectorAll('[data-server]')].map(el=>({
+  el,count:el.querySelector('[data-count]'),box:el.querySelector('[data-avatars]'),
+  n:+el.querySelector('[data-count]').textContent,players:[]
+}));
+function sync(sv){
+  while(sv.players.length<sv.n){let nm;do{nm=pick(NAMES)}while(sv.players.some(p=>p.nm===nm));sv.players.push({nm,svg:avatar()})}
+  while(sv.players.length>sv.n)sv.players.splice(Math.floor(Math.random()*sv.players.length),1);
+  sv.count.textContent=sv.n;
+  const show=sv.players.slice(0,5);
+  sv.box.innerHTML=show.map(p=>`<div class="pl">${p.svg}<small>${p.nm}</small></div>`).join('')+(sv.n>5?`<div class="more">+${sv.n-5}</div>`:'');
+}
+function tick(){
+  servers.forEach(sv=>{sv.n=Math.max(2,Math.min(20,sv.n+Math.floor(Math.random()*3)-1));sync(sv)});
+  document.getElementById('total').textContent=servers.reduce((a,s)=>a+s.n,0);
+}
+servers.forEach(sync);tick();
+setInterval(tick,9000);
+</script>
+</body>
+      </html>
+      
